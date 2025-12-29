@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-svc
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: fastapi-gateway
+    {{- include "platform-demo.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: fastapi-gateway
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
+

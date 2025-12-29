@@ -1,0 +1,64 @@
+# images
+app:
+  image: "fastapi-app:local"        # or your registry image
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+gateway:
+  image: "fastapi-gateway:local"
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+
+db:
+  image: "postgres:15"
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  name: "appdb"
+
+# config
+config:
+  appMessage: "FastAPI App running via Helm in Kubernetes!"
+
+# secrets: for safety, you can either
+# 1) override dbUser/dbPass locally (DON'T commit real ones)
+# 2) set existingSecretName to use a Secret/SealedSecret created separately
+secrets:
+  existingSecretName: ""   # e.g. "app-secret" if you use SealedSecret
+  dbUser: "test123"
+  dbPass: "12344sdffr"
+
+ingress:
+  enabled: true
+  className: "nginx"       # or "" if using default class
+  host: "fastapi.local"
+  path: "/app"
+  pathType: Prefix
+  serviceName: gateway-svc
+  servicePort: 8080
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 60
+
+namespace: "platform-demo"
+

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "platform-demo.fullname" . }}-db
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: db
+    {{- include "platform-demo.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.db.replicaCount }}
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+        {{- include "platform-demo.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.db.image }}
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-secret" (include "platform-demo.fullname" .)) .Values.secrets.existingSecretName }}
+                  key: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-secret" (include "platform-demo.fullname" .)) .Values.secrets.existingSecretName }}
+                  key: DB_PASS
+            - name: POSTGRES_DB
+              value: {{ .Values.db.name | quote }}
+          resources:
+            {{- toYaml .Values.db.resources | nindent 12 }}
+
