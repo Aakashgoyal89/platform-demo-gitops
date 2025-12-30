@@ -1,8 +1,9 @@
 # images
 app:
-  image: "fastapi-app:local"        # or your registry image
+  image: 
+    repository: fastapi:app
+    tag: local
   replicaCount: 2
-  tag: v2
   resources:
     requests:
       cpu: "100m"

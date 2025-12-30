@@ -22,7 +22,7 @@ spec:
       serviceAccountName: app-sa
       containers:
         - name: fastapi
-          image: {{ .Values.app.image }}
+          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
