@@ -1,7 +1,7 @@
 # images
 app:
   image: 
-    repository: fastapi:app
+    repository: fastapi-app
     tag: local
   replicaCount: 2
   resources:
