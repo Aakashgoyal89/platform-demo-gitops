@@ -6,6 +6,8 @@ metadata:
   labels:
     app: fastapi-gateway
     {{- include "platform-demo.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   replicas: {{ .Values.gateway.replicaCount }}
   selector:

@@ -6,6 +6,8 @@ metadata:
   labels:
     app: db
     {{- include "platform-demo.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   replicas: {{ .Values.db.replicaCount }}
   selector:
