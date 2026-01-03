@@ -21,12 +21,12 @@ spec:
       steps:
         - setWeight: 10
         - analysis:
-          templates:
-            - templateName: cpu-usage-check
+            templates:
+              - templateName: cpu-usage-check
         - setWeight: 50
         - analysis:
-          templates:
-            - templateName: cpu-usage-check
+            templates:
+              - templateName: cpu-usage-check
         - setWeight: 100
 
   template:
