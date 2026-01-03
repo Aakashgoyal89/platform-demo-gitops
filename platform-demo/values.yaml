@@ -2,7 +2,7 @@
 app:
   image: 
     repository: fastapi-app
-    tag: v4
+    tag: local
   replicaCount: 2
   resources:
     requests:

@@ -20,13 +20,11 @@ spec:
     canary:
       steps:
         - setWeight: 10
-        - analysis:
-            templates:
-              - templateName: cpu-usage-check
+        - pause: {duration: 60s}
+        - setWeight: 20
+        - pause: {duration: 60s}
         - setWeight: 50
-        - analysis:
-            templates:
-              - templateName: cpu-usage-check
+        - pause: {duration: 60s}  
         - setWeight: 100
 
   template:
