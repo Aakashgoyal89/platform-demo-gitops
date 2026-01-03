@@ -2,7 +2,7 @@
 app:
   image: 
     repository: fastapi-app
-    tag: local
+    tag: v4
   replicaCount: 2
   resources:
     requests:
@@ -37,7 +37,7 @@ db:
 
 # config
 config:
-  appMessage: "FastAPI App running via Helm in Kubernetes!"
+  appMessage: "FastAPI App running via Helm in Kubernetes with canary rollout on cpu metrics!"
 
 # secrets: for safety, you can either
 # 1) override dbUser/dbPass locally (DON'T commit real ones)
